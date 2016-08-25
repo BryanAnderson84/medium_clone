@@ -1,1 +1,17 @@
 <h1>BLOG POST INDEX</h1>
+
+<% if @posts.any? %>
+
+  <h4><ul style="list-style: none;">
+    <% @posts.each do |post| %>
+      <li>-
+        <%= link_to post.title, post_path(post) %>
+      </li>
+    <% end %>
+  </ul></h4>
+  <% else %>
+    <p>There are no current Blog Posts!</p>
+<% end %>
+
+
+<h5> <%= link_to "Add Blog Post", new_post_path, class:"btn btn-default" %> </h5>

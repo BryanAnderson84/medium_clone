@@ -4,6 +4,7 @@ class CreatePosts < ActiveRecord::Migration[5.0]
       t.string :title
       t.text :body
       t.boolean :heart
+      t.belongs_to :user
 
       t.timestamps
     end
