@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :comment, except: [:index, :new, :create]
-  before_action :post, only: [:show]
+  before_action :post
 
   def index
     @comments = @post.comments
@@ -11,7 +11,8 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = @post.comments.new(comment_params)
+    @comment = Comment.new(comment_params)
+    @comment[:post_id] = params[:post_id]
     if @comment.save
       redirect_to post_path(@post)
     else
@@ -41,14 +42,14 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:body, :created_at)
+    params.require(:comment).permit(:body)
   end
 
   def comment
-    @comment = comment.find(params[:id])
+    @comment = Comment.find(params[:id])
   end
 
   def post
-    @post = post.find(params[:post_id])
+    @post = Post.find(params[:post_id])
   end
 end
