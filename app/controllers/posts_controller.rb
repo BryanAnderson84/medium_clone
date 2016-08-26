@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :post, except: [:index, :new, :create]
 
   def index
-    @posts = Post.all
+    @posts = Post.all.paginate(page: params[:page], per_page: 2)
   end
 
   def new
@@ -39,7 +39,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :user_id)
+    params.require(:post).permit(:title, :body, :user_id)
   end
 
   def post
